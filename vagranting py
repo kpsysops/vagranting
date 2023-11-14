@@ -1,25 +1,57 @@
-#Detect OS
+#This script allow to quickly setup kubernetes cluster on WIN10 machine. 
+#Fully automated install of all nesseary software
+
+from genericpath import exists
+import os
+import sys
+import urllib.request
+import subprocess
+import shutil
 
 
 
-#If win ask to run .bat if Linux as to run as sudo
+def checkInstalltionFiles():
+    if exists('virutalbox.exe') and exists('vagrant.msi'):
+        return True
+    else:
+        return False
 
+#TEMPDIR
+if exists('C:\\kubelocalTemp\\'):
+    os.chdir('C:\\kubelocalTemp\\')
+else:    
+    os.mkdir('C:\\kubelocalTemp\\')
 
+virutalboxUrl = 'https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1.26-145957-Win.exe'
+vagrantUrl = 'https://releases.hashicorp.com/vagrant/2.4.0/vagrant_2.4.0_windows_amd64.msi'
 
-#Check if Vagrant vbox installed
+if checkInstalltionFiles():
+    print("Files are downloaded")
+else:
+    print('Downloading files from the internet')
+    urllib.request.urlretrieve(virutalboxUrl, "virutalbox.exe")
+    urllib.request.urlretrieve(vagrantUrl, "vagrant.msi")
+    if checkInstalltionFiles():
+        print("Files are downloaded")
+    else:
+        print("Download fails")
 
+#INSTALLATION VIRUTALBOX
 
+#os.system('msiexec /i %s /qn' % "virutalbox.exe")
+testVbox = subprocess.check_output(['wmic', 'product', 'get', 'Name' ])
+if str(testVbox).find("Virtual") != -1:
+    print("allready installed VBox")
+else:
+    print("Installing VBox")
+    os.system('cmd /k "virutalbox.exe --silent --ignore-reboot"') 
+    
+#INSTALLATION VAGRANT
 
-#Display info about action to be done by this script
-
-
-
-#Install Vbox
-
-
-
-#Install Vagrant
-
-
-
-#Check if installed & Display Final message
+testVagrant = subprocess.check_output(['wmic', 'product', 'get', 'Name' ])
+print(testVagrant)
+if str(testVagrant).find("Vagrant") != -1:
+    print("allready isntalled")
+else:
+    print("Installing Vagrant")
+    os.system('cmd /k "vagrant.msi /i /qn"')
