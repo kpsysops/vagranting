@@ -1,0 +1,23 @@
+@   IN  SOA    dns.example.com. root.example.com. (
+                                                1002    ;Serial     
+                                                3H      ;Refresh    
+                                                15M     ;Retry      
+                                                1W      ;Expire     
+                                                1D      ;Minimum TTL
+                                                )
+
+;DNS infromation
+@      IN  NS    dns.example.com.
+
+;Revers lookup for DNS
+2  IN  PTR      dns.example.com.
+
+;PTR Records ( IP Address -> HostName )
+3      IN PTR ldp.example.com.
+11     IN PTR www.example.com.
+11     IN PTR nginx.example.com.
+12     IN PTR gitlab.example.com.
+13     IN PTR jenkins.example.com.
+15     IN PTR mail.example.com.
+21     IN PTR swarm1.example.com
+22     IN PTR swarm2.example.com

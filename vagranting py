@@ -1,0 +1,25 @@
+#Detect OS
+
+
+
+#If win ask to run .bat if Linux as to run as sudo
+
+
+
+#Check if Vagrant vbox installed
+
+
+
+#Display info about action to be done by this script
+
+
+
+#Install Vbox
+
+
+
+#Install Vagrant
+
+
+
+#Check if installed & Display Final message
